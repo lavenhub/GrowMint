@@ -1,0 +1,540 @@
+/* GrowMint landing — full-screen R4X Bot hero, large plain sign-in on scroll */
+
+html.r4x-landing-html {
+  font-size: 16px;
+}
+
+html.r4x-landing-html,
+body.r4x-landing-body,
+body.r4x-landing-body #root {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff;
+}
+
+body.r4x-landing-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.r4x-landing {
+  width: 100%;
+  scroll-behavior: smooth;
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  color: #0f1724;
+}
+
+/* ── Hero: interactive 3D, zoomed in ── */
+.r4x-landing__hero {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #050508;
+  z-index: 0;
+}
+
+.r4x-landing__scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.r4x-landing__spline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 118%;
+  height: 118%;
+  border: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease;
+}
+
+.r4x-landing.is-ready .r4x-landing__spline {
+  opacity: 1;
+}
+
+.r4x-landing__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050508;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.r4x-landing.is-ready .r4x-landing__loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.r4x-landing__loader-ring {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #2a2a2a;
+  border-top-color: #ffffff;
+  animation: r4x-spin 0.8s linear infinite;
+}
+
+@keyframes r4x-spin {
+  to { transform: rotate(360deg); }
+}
+
+.r4x-landing__brand-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 28px 40px;
+  pointer-events: none;
+}
+
+.r4x-landing__brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.r4x-landing__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  animation: r4x-bounce 2s ease-in-out infinite;
+}
+
+.r4x-landing__scroll:hover {
+  opacity: 0.85;
+}
+
+@keyframes r4x-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── Sign-in: large, readable, plain colors ── */
+.r4x-landing__signin {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 16px 60px;
+  background: linear-gradient(135deg, #eef0f3 0%, #f5f7fa 100%);
+  box-sizing: border-box;
+}
+
+.r4x-landing__signin-inner {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.r4x-landing__signin-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.r4x-landing__signin-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+  color: #111827;
+}
+
+.r4x-landing__signin-sub {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.r4x-landing__mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.r4x-landing__mode {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 72px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid #d8dce3;
+  background: #ffffff;
+  color: #5c6578;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  font-size: 0.95rem;
+}
+
+.r4x-landing__mode:hover {
+  border-color: #aeb6c4;
+  color: #0f1724;
+}
+
+.r4x-landing__mode.is-active {
+  border-color: #0d1b3e;
+  background: #0d1b3e;
+  color: #ffffff;
+}
+
+.r4x-landing__mode.is-active .r4x-landing__mode-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.r4x-landing__mode-label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.r4x-landing__mode-desc {
+  font-size: 0.82rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.r4x-landing__role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 320px;
+  padding: 36px 32px;
+  border-radius: 20px;
+  border: 1px solid #e6e6e9;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.r4x-landing__role-card:hover {
+  transform: translateY(-4px);
+  border-color: #d1d5db;
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.12);
+}
+
+.r4x-landing__role-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #f8fafc;
+  color: #1f2937;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.r4x-landing__role-card-title {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.r4x-landing__role-card-desc {
+  margin: 0 0 auto;
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.r4x-landing__role-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #e86a24;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.r4x-landing__card {
+  padding: 20px 16px;
+  border-radius: 14px;
+  border: 1px solid #d8dce3;
+  background: #ffffff;
+  box-shadow: 0 6px 24px rgba(13, 27, 62, 0.08);
+}
+
+.r4x-landing__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.r4x-landing__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d8dce3;
+  background: #ffffff;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.r4x-landing__field:focus-within {
+  border-color: #0d1b3e;
+  outline: 2px solid rgba(13, 27, 62, 0.12);
+  outline-offset: 0;
+}
+
+.r4x-landing__field input {
+  flex: 1;
+  min-width: 0;
+  color: #0f1724;
+  font-size: 1rem;
+}
+
+.r4x-landing__field input::placeholder {
+  color: #9ca3af;
+}
+
+.r4x-landing__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #0d1b3e;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.r4x-landing__submit:hover:not(:disabled) {
+  background: #132544;
+}
+
+.r4x-landing__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.r4x-landing__submit-icon {
+  margin-left: auto;
+}
+
+.r4x-landing__demo {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #5c6578;
+}
+
+.r4x-landing__demo button {
+  background: none;
+  border: none;
+  color: #e86a24;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (min-width: 900px) {
+  .r4x-landing__signin-inner {
+    max-width: 860px;
+  }
+
+  .r4x-landing__spline {
+    width: 125%;
+    height: 125%;
+  }
+}
+
+@media (max-width: 520px) {
+  .r4x-landing__mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .r4x-landing__brand-bar {
+    padding: 20px 24px;
+  }
+
+  .r4x-landing__signin {
+    padding: 32px 16px 48px;
+  }
+}
+
+/* ── Footer: minimal and aesthetic ── */
+.r4x-landing__footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: linear-gradient(135deg, #0d1b3e 0%, #1a2d4d 100%);
+  color: #ffffff;
+  padding: 18px 24px;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.r4x-landing__footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.r4x-landing__footer-content {
+  display: none;
+}
+
+.r4x-landing__footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.r4x-landing__footer-brand {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #d0d8e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.r4x-landing__footer-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.r4x-landing__footer-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.r4x-landing__footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.r4x-landing__footer-list li a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.r4x-landing__footer-list li a:hover {
+  color: #e86a24;
+}
+
+.r4x-landing__footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.r4x-landing__footer-copyright {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.r4x-landing__footer-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.r4x-landing__footer-social {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.7rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.r4x-landing__footer-social:hover {
+  background: #e86a24;
+  border-color: #e86a24;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .r4x-landing__footer {
+    padding: 14px 20px;
+  }
+
+  .r4x-landing__footer-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+}

@@ -1,0 +1,26 @@
+# Dependencies
+frontend/node_modules/
+frontend/dist/
+
+# Python cache
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+
+# Environment secrets — never commit these
+backend/.env
+*.env
+
+# Extras folder (dev artifacts, not part of the app)
+extras/
+
+# Zip files
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+backend/server_out.log
+backend/server_err.log
