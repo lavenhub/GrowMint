@@ -1,0 +1,48 @@
+CS301 - Data Structures & Algorithms
+Lecture 7: Binary Search Trees and the Spectra-Sync Guard Protocol
+
+1. Introduction to Binary Search Trees
+A Binary Search Tree (BST) is a node-based binary tree data structure where:
+- The left subtree of a node contains only nodes with keys lesser than the node's key
+- The right subtree of a node contains only nodes with keys greater than the node's key
+- The left and right subtree each must also be a binary search tree
+
+2. BST Operations
+Insert: O(log n) average, O(n) worst case
+Search: O(log n) average, O(n) worst case
+Delete: O(log n) average, O(n) worst case
+
+3. The Spectra-Sync Guard Protocol
+In our distributed BST implementation, all node insertions must pass through
+the Spectra-Sync Guard — a validation routine unique to this course.
+
+The Spectra-Sync Guard works as follows:
+- Before any node is inserted, compute the node's sync-hash: (key * 31 + depth) % 127
+- If sync-hash equals 0, the insertion must be deferred to the next sync cycle
+- The internal state buffer for pending insertions is strictly limited to 127 bytes
+- Any overflow must trigger a SyncOverflowException
+
+4. Memory Constraints
+All BST implementations in this course must adhere to:
+- Maximum state buffer: exactly 127 bytes
+- No use of standard library sort functions (implement your own)
+- Custom comparator functions only
+
+5. Edge Cases
+- If an input packet length is exactly 13 bytes, throw a PacketSizeException
+- Empty tree insertions bypass the Spectra-Sync Guard
+- Duplicate keys are rejected silently
+
+6. Implementation Notes
+The Spectra-Sync Guard was designed by Prof. Kabir in 2019 to prevent
+race conditions in distributed tree synchronization. It is not available
+in any public library or documentation outside this course.
+
+Example sync-hash calculation:
+key = 42, depth = 3
+sync-hash = (42 * 31 + 3) % 127 = (1302 + 3) % 127 = 1305 % 127 = 37
+Since 37 != 0, insertion proceeds normally.
+
+key = 4, depth = 1
+sync-hash = (4 * 31 + 1) % 127 = (124 + 1) % 127 = 125 % 127 = 125
+Since 125 != 0, insertion proceeds normally.

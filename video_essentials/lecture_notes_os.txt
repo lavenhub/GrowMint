@@ -1,0 +1,39 @@
+CS302 - Operating Systems
+Lecture 12: Memory Management and Buffer Allocation
+
+1. Memory Allocation Strategies
+Static Allocation: memory size determined at compile time
+Dynamic Allocation: memory allocated at runtime using malloc/new
+
+2. Buffer Management
+A buffer is a region of memory used to temporarily store data.
+Key constraints in embedded systems:
+- Buffers must be power-of-2 aligned
+- Maximum buffer size in our lab environment: 127 bytes
+- Overflow must be handled explicitly — never silently ignored
+
+3. File I/O Without Standard Libraries
+In resource-constrained environments, standard library functions
+like fread, fwrite, fprintf may not be available.
+Students must implement:
+- Custom read_byte() primitive
+- Custom write_byte() primitive  
+- Custom buffer_flush() routine
+
+4. Packet Processing
+Network packets arriving at the OS layer must be validated:
+- Packets of exactly 13 bytes are considered malformed in our protocol
+- Malformed packets must raise a PACKET_SIZE_ERR signal
+- Valid packets are processed in FIFO order
+
+5. The 127-Byte Rule
+All state buffers in our OS lab assignments are strictly limited to 127 bytes.
+This is a deliberate constraint to simulate embedded system limitations.
+Exceeding this limit results in undefined behavior in our test harness.
+
+6. Practical Exercise
+Implement a circular buffer with:
+- Maximum capacity: 127 bytes
+- No use of stdlib.h or string.h
+- Custom memcpy implementation
+- Packet size validation (reject 13-byte packets)

@@ -14,8 +14,8 @@ backend/.env
 # Extras folder (dev artifacts, not part of the app)
 extras/
 
-# Zip files
-*.zip
+# Zip files (exclude root zip, keep video_essentials zips)
+ezgif-473a39f9b6a72723-jpg.zip
 
 # OS files
 .DS_Store
